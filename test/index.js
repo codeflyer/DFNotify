@@ -17,7 +17,6 @@ var connectionManager = require('./connectionManager');
 
 var Factory = require('entityx').Factory;
 Factory.reset();
-Factory.setApplicationRoot(path.join(__dirname, '..'));
 
 var ready = require('readyness');
 var MongoClient = require('mongodb').MongoClient;
@@ -31,7 +30,6 @@ MongoClient.connect(
         throw err;
       }
       connectionManager.setConnection(db);
-      require('entityx').ConnectionManager.addConnection(db);
       mongoConnected();
     });
 

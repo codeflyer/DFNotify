@@ -5,7 +5,7 @@ var MessageFilter = require('../../lib/business/MessageFilter');
 var ObjectID = require('mongodb').ObjectID;
 var moduleEntryPoint = require('../../lib/index');
 
-describe('MessageManager getMessages forDate', function() {
+describe('MessageManager getMessages confirm required', function() {
 
   before(function(done) {
     require('readyness').doWhen(done);
@@ -19,46 +19,20 @@ describe('MessageManager getMessages forDate', function() {
     });
   });
 
-  it('Check range', function(done) {
+  it('Check confirm required', function(done) {
     var messageFilter = new MessageFilter();
     messageFilter
         .user(1)
-        .today(new Date('2014/12/02'));
+        .isConfirmRequired();
     MessageManager.getMessages(
         messageFilter.getFilter()
     ).then(
         function(result) {
           result.length.should.be.equal(1);
-          result[0].getId().should.be.equal(
-              ObjectID.createFromTime(1).toString()
-          );
-          done();
-        }
-    ).catch(function(err) {
-          done(err);
-        }
-    );
-  });
-
-  it('Check range 2', function(done) {
-    var messageFilter = new MessageFilter();
-    messageFilter
-        .user(1)
-        .today(new Date('2014/12/06'));
-    MessageManager.getMessages(
-        messageFilter.getFilter()
-    ).then(
-        function(result) {
-          result.length.should.be.equal(2);
           var ids = [
-            ObjectID.createFromTime(1).toString(),
             ObjectID.createFromTime(2).toString()
           ];
           ids.indexOf(result[0].getId()).should.not.be.equal(-1);
-          ids.indexOf(result[1].getId()).should.not.be.equal(-1);
-          ids.indexOf(result[0].getId()).should.not.be.equal(
-              ids.indexOf(result[1].getId())
-          );
           done();
         }
     ).catch(function(err) {
@@ -67,19 +41,19 @@ describe('MessageManager getMessages forDate', function() {
     );
   });
 
-  it('Check range 3', function(done) {
+  it('Check not confirm required', function(done) {
     var messageFilter = new MessageFilter();
     messageFilter
         .user(1)
-        .today(new Date('2014/12/18'));
+        .isNotConfirmRequired();
     MessageManager.getMessages(
         messageFilter.getFilter()
     ).then(
         function(result) {
           result.length.should.be.equal(2);
           var ids = [
-            ObjectID.createFromTime(2).toString(),
-            ObjectID.createFromTime(3).toString()
+              ObjectID.createFromTime(1).toString(),
+              ObjectID.createFromTime(3).toString()
           ];
           ids.indexOf(result[0].getId()).should.not.be.equal(-1);
           ids.indexOf(result[1].getId()).should.not.be.equal(-1);
@@ -94,19 +68,21 @@ describe('MessageManager getMessages forDate', function() {
     );
   });
 
-  it('Check range 4', function(done) {
+  it('Check NOT confirm required AND Noviewed', function(done) {
     var messageFilter = new MessageFilter();
     messageFilter
         .user(1)
-        .today(new Date('2015/12/18'));
+        .isNotConfirmRequired()
+        .isConfirmViewed();
     MessageManager.getMessages(
         messageFilter.getFilter()
     ).then(
         function(result) {
           result.length.should.be.equal(1);
-          result[0].getId().should.be.equal(
-              ObjectID.createFromTime(3).toString()
-          );
+          var ids = [
+            ObjectID.createFromTime(1).toString(),
+          ];
+          ids.indexOf(result[0].getId()).should.not.be.equal(-1);
           done();
         }
     ).catch(function(err) {

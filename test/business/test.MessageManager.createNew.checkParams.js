@@ -1,7 +1,7 @@
 var path = require('path');
 var connectionManager = require('../connectionManager');
 var MessageManager = require('../../lib/business/MessageManager');
-
+var moduleEntryPoint = require('../../lib/index');
 describe('MessageManager createNew checkParams', function() {
 
   before(function(done) {
@@ -9,6 +9,7 @@ describe('MessageManager createNew checkParams', function() {
   });
 
   beforeEach(function(done) {
+    moduleEntryPoint.setMongoDbConnection(connectionManager.getConnection());
     var fixtures = connectionManager.getFixtures();
     fixtures.clear(function(err) {
       fixtures.load(path.join(__dirname, '..', 'fixtures'), done);

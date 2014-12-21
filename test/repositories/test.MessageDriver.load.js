@@ -2,6 +2,7 @@ var path = require('path');
 var connectionManager = require('../connectionManager');
 var Factory = require('entityx').Factory;
 var ObjectID = require('mongodb').ObjectID;
+var moduleEntryPoint = require('../../lib/index');
 
 describe('MessageDriver load', function() {
 
@@ -10,6 +11,7 @@ describe('MessageDriver load', function() {
   });
 
   beforeEach(function(done) {
+    moduleEntryPoint.setMongoDbConnection(connectionManager.getConnection());
     var fixtures = connectionManager.getFixtures();
     fixtures.clear(function(err) {
       fixtures.load(path.join(__dirname, '..', 'fixtures'), done);
@@ -40,12 +42,14 @@ describe('MessageDriver load', function() {
             title: 'notify title 1',
             message: 'notify message 1',
             from: new Date('2014/12/01'),
+            moreAction: 'http://www.google.com',
+            moreLabel: 'Per saperne di più',
             expires: new Date('2014/12/15'),
             archived: false,
             hide: true,
             firstView: new Date('2014/12/3'),
             confirmView: new Date('2014/12/4'),
-            confirmRequired: true,
+            confirmRequired: false,
             removeIfExpired: false,
             popupOnFirstView: false,
             customData: {

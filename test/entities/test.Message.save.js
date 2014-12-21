@@ -1,6 +1,7 @@
 var path = require('path');
 var connectionManager = require('../connectionManager');
 var Factory = require('entityx').Factory;
+var moduleEntryPoint = require('../../lib/index');
 
 describe('Message entity save', function() {
 
@@ -9,6 +10,7 @@ describe('Message entity save', function() {
   });
 
   beforeEach(function(done) {
+    moduleEntryPoint.setMongoDbConnection(connectionManager.getConnection());
     var fixtures = connectionManager.getFixtures();
     fixtures.clear(function(err) {
       fixtures.load(path.join(__dirname, '..', 'fixtures'), done);
@@ -20,6 +22,8 @@ describe('Message entity save', function() {
     model.setIdUser(2);
     model.setTitle('other title');
     model.setMessage('other message');
+    model.setMoreAction('http://www.yahoo.com');
+    model.setMoreLabel('Search in yahoo');
     model.setFrom(new Date('2014/12/01'));
     model.setExpires(new Date('2014/12/31'));
     model.setIsArchive(true);

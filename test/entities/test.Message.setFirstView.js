@@ -4,7 +4,7 @@ var Factory = require('entityx').Factory;
 var ObjectID = require('mongodb').ObjectID;
 var moduleEntryPoint = require('../../lib/index');
 
-describe('Message entity exists', function() {
+describe('Message entity setFirstView', function() {
 
   before(function(done) {
     require('readyness').doWhen(done);
@@ -18,26 +18,15 @@ describe('Message entity exists', function() {
     });
   });
 
-  it('Should exists', function(done) {
+  it('Entity load', function(done) {
     var model = Factory.getModel('DFNotify/Message',
-        ObjectID.createFromTime(1).toString());
-    model.exists().then(
+        ObjectID.createFromTime(3).toString());
+    model.load().then(
         function(result) {
-          result.should.be.true;
-          done();
+          var date = new Date();
+          return model.updateFirstView(date);
         }
-    ).catch(function(err) {
-          done(err);
-        }
-    );
-  });
-
-  it('Should NOT exists', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
-        ObjectID.createFromTime(10).toString());
-    model.exists().then(
-        function(result) {
-          result.should.be.false;
+    ).then(function() {
           done();
         }
     ).catch(function(err) {
