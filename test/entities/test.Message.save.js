@@ -18,7 +18,7 @@ describe('Message entity save', function() {
   });
 
   it('Entity save', function(done) {
-    var model = Factory.getModel('DFNotify/Message');
+    var model = Factory.getEntity('DFNotify/Message');
     model.setIdUser(2);
     model.setTitle('other title');
     model.setMessage('other message');
@@ -26,7 +26,7 @@ describe('Message entity save', function() {
     model.setMoreLabel('Search in yahoo');
     model.setFrom(new Date('2014/12/01'));
     model.setExpires(new Date('2014/12/31'));
-    model.setIsArchive(true);
+    model.setIsArchived(true);
     model.setIsHide(false);
     model.setFirstView(new Date('2014/12/3'));
     model.setConfirmView(null);

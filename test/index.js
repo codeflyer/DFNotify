@@ -15,9 +15,6 @@ logger.setLevel('TRACE');
 
 var connectionManager = require('./connectionManager');
 
-var Factory = require('entityx').Factory;
-Factory.reset();
-
 var ready = require('readyness');
 var MongoClient = require('mongodb').MongoClient;
 var mongoConnected = ready.waitFor('mongoDbOk');

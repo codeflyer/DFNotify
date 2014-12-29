@@ -19,7 +19,7 @@ describe('Message entity exists', function() {
   });
 
   it('Should exists', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
+    var model = Factory.getEntity('DFNotify/Message',
         ObjectID.createFromTime(1).toString());
     model.exists().then(
         function(result) {
@@ -33,7 +33,7 @@ describe('Message entity exists', function() {
   });
 
   it('Should NOT exists', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
+    var model = Factory.getEntity('DFNotify/Message',
         ObjectID.createFromTime(10).toString());
     model.exists().then(
         function(result) {

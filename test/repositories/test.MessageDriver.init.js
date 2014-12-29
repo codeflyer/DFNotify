@@ -18,17 +18,7 @@ describe('MessageDriver init', function() {
   });
 
   it('Should get instance of driver', function(done) {
-    Factory.getDriver('DFNotify/Message');
+    Factory.getRepository('DFNotify/Message');
     done();
-  });
-
-  it('Should fail on get instance of driver', function(done) {
-    try {
-      Factory.getDriver('DFNotify/Message2');
-      done('should throw an error');
-    } catch (e) {
-      e.code.should.be.equal('MODULE_NOT_FOUND');
-      done();
-    }
   });
 });

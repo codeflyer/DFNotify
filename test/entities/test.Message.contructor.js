@@ -17,17 +17,7 @@ describe('Message entity contructor', function() {
   });
 
   it('Should get instance of entity', function(done) {
-    Factory.getModel('DFNotify/Message');
+    Factory.getEntity('DFNotify/Message');
     done();
-  });
-
-  it('Should fail on get instance of driver', function(done) {
-    try {
-      Factory.getModel('DFNotify/Message2');
-      done('should throw an error');
-    } catch (e) {
-      e.code.should.be.equal('MODULE_NOT_FOUND');
-      done();
-    }
   });
 });

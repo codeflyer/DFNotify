@@ -19,7 +19,7 @@ describe('Message entity setFirstView', function() {
   });
 
   it('Entity load', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
+    var model = Factory.getEntity('DFNotify/Message',
         ObjectID.createFromTime(3).toString());
     model.load().then(
         function(result) {

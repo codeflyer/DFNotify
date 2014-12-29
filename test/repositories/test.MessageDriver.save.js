@@ -18,7 +18,7 @@ describe('MessageDriver save', function() {
   });
 
   it('Should success on load', function(done) {
-    var driver = Factory.getDriver('DFNotify/Message');
+    var driver = Factory.getRepository('DFNotify/Message');
     var valueToInsert = {
       title: 'notify title',
       message: 'notify message',
@@ -39,11 +39,8 @@ describe('MessageDriver save', function() {
       }
     };
 
-    driver.insert(valueToInsert,
-        function(err, result) {
-          if (err) {
-            return done(err);
-          }
+    driver.insert(valueToInsert).then(
+        function(result) {
           result.should.be.not.eql({
             title: 'notify title',
             message: 'notify message',
@@ -65,7 +62,8 @@ describe('MessageDriver save', function() {
           });
           done();
         }
-    );
+    ).catch(function(err) {
+          return done(err);
+        });
   });
-
 });

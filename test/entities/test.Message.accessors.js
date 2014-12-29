@@ -19,7 +19,7 @@ describe('Message entity accessors', function() {
   });
 
   it('Entity load', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
+    var model = Factory.getEntity('DFNotify/Message',
         ObjectID.createFromTime(1).toString());
     model.load().then(
         function(result) {
@@ -30,7 +30,7 @@ describe('Message entity accessors', function() {
           model.getMoreLabel().should.be.equal('Per saperne di più');
           model.getFrom().should.be.eql(new Date('2014/12/01'));
           model.getExpires().should.be.eql(new Date('2014/12/15'));
-          model.isArchive().should.be.false;
+          model.isArchived().should.be.false;
           model.isHide().should.be.true;
           model.getFirstView().should.be.eql(new Date('2014/12/3'));
           model.getConfirmView().should.be.eql(new Date('2014/12/4'));

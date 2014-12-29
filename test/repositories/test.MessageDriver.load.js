@@ -19,7 +19,7 @@ describe('MessageDriver load', function() {
   });
 
   it('Should fail on load', function(done) {
-    var driver = Factory.getDriver('DFNotify/Message',
+    var driver = Factory.getRepository('DFNotify/Message',
         ObjectID.createFromTime(1000).toString());
     driver.loadEntity().then(
         function(result) {
@@ -32,7 +32,7 @@ describe('MessageDriver load', function() {
   });
 
   it('Should success on load', function(done) {
-    var driver = Factory.getDriver('DFNotify/Message',
+    var driver = Factory.getRepository('DFNotify/Message',
         ObjectID.createFromTime(1).toString());
     driver.loadEntity().then(
         function(result) {

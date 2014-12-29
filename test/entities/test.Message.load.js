@@ -19,7 +19,7 @@ describe('Message entity load', function() {
   });
 
   it('Entity load', function(done) {
-    var model = Factory.getModel('DFNotify/Message',
+    var model = Factory.getEntity('DFNotify/Message',
         ObjectID.createFromTime(1).toString());
     model.load().then(
         function(result) {

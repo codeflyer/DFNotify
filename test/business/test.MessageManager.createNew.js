@@ -31,7 +31,7 @@ describe('MessageManager createNew', function() {
                 result.getMessage().should.be.equal('msg');
                 result.getFrom().should.be.eql(new Date('2014/12/12'));
                 (result.getExpires() == null).should.be.true;
-                result.isArchive().should.be.false;
+                result.isArchived().should.be.false;
                 result.isHide().should.be.false;
                 result.isConfirmRequired().should.be.false;
                 result.isRemoveIfExpired().should.be.false;
@@ -65,7 +65,7 @@ describe('MessageManager createNew', function() {
                 result.getMessage().should.be.equal('msg');
                 result.getFrom().should.be.eql(new Date('2014/12/12'));
                 result.getExpires().should.be.eql(new Date('2014/12/15'));
-                result.isArchive().should.be.false;
+                result.isArchived().should.be.false;
                 result.isHide().should.be.false;
                 result.isConfirmRequired().should.be.false;
                 result.isRemoveIfExpired().should.be.false;
@@ -100,7 +100,7 @@ describe('MessageManager createNew', function() {
                 result.getMessage().should.be.equal('msg');
                 result.getFrom().should.be.eql(new Date('2014/12/12'));
                 result.getExpires().should.be.eql(new Date('2014/12/15'));
-                result.isArchive().should.be.false;
+                result.isArchived().should.be.false;
                 result.isHide().should.be.false;
                 result.isConfirmRequired().should.be.true;
                 result.isRemoveIfExpired().should.be.false;
@@ -135,7 +135,7 @@ describe('MessageManager createNew', function() {
                 result.getMessage().should.be.equal('msg');
                 result.getFrom().should.be.eql(new Date('2014/12/12'));
                 result.getExpires().should.be.eql(new Date('2014/12/15'));
-                result.isArchive().should.be.false;
+                result.isArchived().should.be.false;
                 result.isHide().should.be.false;
                 result.isConfirmRequired().should.be.false;
                 result.isRemoveIfExpired().should.be.true;
