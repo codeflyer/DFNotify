@@ -1,5 +1,5 @@
 var path = require('path');
-var connectionManager = require('../connectionManager');
+var connectionManager = require('connection-store');
 var Factory = require('entityx').Factory;
 var ObjectID = require('mongodb').ObjectID;
 var moduleEntryPoint = require('../../lib/index');
@@ -11,9 +11,8 @@ describe('MessageDriver load', function() {
   });
 
   beforeEach(function(done) {
-    moduleEntryPoint.setMongoDbConnection(connectionManager.getConnection());
-    var fixtures = connectionManager.getFixtures();
-    fixtures.clear(function(err) {
+    var fixtures = connectionManager.getConnection('fixtures');
+    connectionManager.getConnection().dropDatabase(function(err) {
       fixtures.load(path.join(__dirname, '..', 'fixtures'), done);
     });
   });

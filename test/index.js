@@ -9,15 +9,11 @@ require('should');
 
 var config = require('config');
 
-var log4js = require('log4js');
-var logger = log4js.getLogger('main');
-logger.setLevel('TRACE');
-
-var connectionManager = require('./connectionManager');
+var connectionManager = require('connection-store');
 
 var ready = require('readyness');
 var MongoClient = require('mongodb').MongoClient;
-var mongoConnected = ready.waitFor('mongoDbOk');
+var fixtureConnected = ready.waitFor('fixtureDbOk');
 MongoClient.connect(
     'mongodb://' +
     config.mongodb.host + ':' +
@@ -26,14 +22,9 @@ MongoClient.connect(
       if (err) {
         throw err;
       }
-      connectionManager.setConnection(db);
-      mongoConnected();
+      connectionManager.addConnection(db);
+      //require('../lib/index').setMongoDbConnection(connectionManager.getConnection());
+      var fixtures = require('pow-mongodb-fixtures').connect(config.mongodb.db);
+      connectionManager.addConnection('fixtures', fixtures);
+      fixtureConnected();
     });
-
-var fixtures = require('pow-mongodb-fixtures').connect(config.mongodb.db);
-var fixtureConnected = ready.waitFor('fixtureDbOk');
-fixtures.clear(function(err) {
-  fixtureConnected();
-});
-
-connectionManager.setFixtures(fixtures);
