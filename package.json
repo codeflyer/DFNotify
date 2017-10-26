@@ -1,6 +1,6 @@
 {
   "name": "df-notify",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "A node.js module for notify user managment",
   "main": "lib/index.js",
   "scripts": {
